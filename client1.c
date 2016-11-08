@@ -1,6 +1,9 @@
 #include <string.h>
 #include <stdio.h>
 #include <mosquitto.h>
+#include "waterpump.h"
+
+//#include "gpio.h"
 
 #define BROKER_IP "localhost"
 #define PORT 1202
@@ -31,6 +34,12 @@ int main(void)
   p_mosq = mosquitto_new("rpi3",  /* Id */
                                  true,  /* instruct broker to clean all messages */
                                  NULL); /* no pointer to callbacks */
+  mosquitto_tls_set(p_mosq, 
+						"/etc/mosquitto/certs/ca.crt",
+						"/etc/mosquitto/certs",
+						"/etc/mosquitto/server.crt",
+						"/etc/mosquitto/server.key",
+						NULL);
     
   mosquitto_log_callback_set(p_mosq, rpi3_log_callback);
   mosquitto_connect_callback_set(p_mosq, rpi3_connect_callback);
@@ -39,12 +48,12 @@ int main(void)
   mosquitto_disconnect_callback_set(p_mosq, rpi3_disconnect_callback);
 
   if(mosquitto_connect(p_mosq,   /* mosquitto pointer */ 
-                 BROKER_IP,   /* Broker IP Address */
-                      PORT,   /* Broker Port */
-                         5))   /* Ping every 5 seconds */
+                 BROKER_IP,      /* Broker IP Address */
+                      PORT,      /* Broker Port */
+                         5))     /* Ping every 5 seconds */
   {
     fprintf(stderr, "Unable to connect.\n");
-    return 1;
+    //return 1;
   }
 
   mosquitto_subscribe(p_mosq,
@@ -52,7 +61,14 @@ int main(void)
                       "sensor/power",
                       qos0_no_confirm);
 
-  return  mosquitto_loop_forever(p_mosq, 1000, 1000 /* unused */);
+  /* Initialize water pumps */
+  water_init();
+
+  water_forward();
+  water_stop();
+
+  //return  mosquitto_loop_forever(p_mosq, 1000, 1000 /* unused */);
+  return 0;
 }
 
 
