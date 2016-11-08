@@ -65,23 +65,7 @@
 
 
     <!-- Main Navigation menu          -->
-
-
-
-    <nav mfb-menu menu-state="pageButtonsState" position="br" effect="zoomin" label="close"
-      active-icon="ion-close" resting-icon="ion-plus-round"
-      toggling-method="click">
- 
-      <a mfb-button ng-repeat="button in pageButtons" ng-click="goTo( button.path )"
-         icon="{{button.icon}}" label="{{button.label}}"> 
-        </a>
-    </nav>
-
-
-
-
-
-    <nav mfb-menu menu-state="userButtonsState" position="bl" effect="zoomin" label="close"
+    <nav mfb-menu menu-state="userButtonsState" position="br" effect="zoomin" label="close"
       active-icon="ion-close" resting-icon="ion-person"
       toggling-method="click">
  
@@ -95,55 +79,7 @@
       </a>
     </nav>
  
-    <!--    -->
 
-<!--  User Account  
-    <div  style="position: fixed; bottom: 10px; left: 5px" >
-      <md-fab-speed-dial md-open="navController.isOpen" md-direction="up"
-                         class="md-fling"  ng-cloak> 
-        <md-fab-trigger >
-          <md-button aria-label="menu" class="md-fab md-warn">
-            <md-icon md-svg-src="img/icons/user.svg" aria-label="{{button.label}}"></md-icon>
-          </md-button>
-        </md-fab-trigger>
-
-        <md-fab-actions>
-          <md-button ng-repeat="button in userButtons"  class="md-fab md-raised md-icon-button "
-                    aria-label="{{button.label}}"  ng-click="goTo( button.path )"
-                    ng-style="userNavIconStyle[navController.userNavOpen ? 1 : 0]"> 
-                    <md-icon md-svg-icon="{{button.icon}}" aria-label="{{button.label}}"></md-icon>
-          </md-button>
-        </md-fab-actions>
-      </md-fab-speed-dial>
-
-    </div>  
-     -->
-
-<!--  Page Navigation 
-    <div  style="position: fixed; bottom: 15px; right: 5px" >
-      <md-fab-speed-dial md-open="navController.mainNavOpen" md-direction="up"
-                         class="md-fling"  ng-cloak> 
-        <md-fab-trigger >
-          <md-button aria-label="menu" class="md-fab md-warn" ng-style="navIconStyle[0];" >
-            <md-icon md-svg-src="img/icons/add.svg" aria-label="Menu" ></md-icon>
-          </md-button>
-        </md-fab-trigger> 
-
-        <md-fab-actions>
-
-          <md-button ng-repeat="button in pageButtons"  class="md-fab md-raised md-icon-button"
-                    ng-click="goTo( button.path )" label="{{button.label}}"
-                    ng-style="navIconStyle[navController.mainNavOpen ? 1 : 0]">
-                    
-                    <md-icon md-svg-icon="{{button.icon}}"></md-icon> 
-          </md-button>
-
-        </md-fab-actions>
-      </md-fab-speed-dial>
-
-    </div>
-
-    -->
 </div>   
 <!---- End of Overall section -------------->
 
