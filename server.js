@@ -12,6 +12,8 @@ var bodyParser        = require('body-parser') /* Extra BS needed to interface c
 var cookieParser      = require('cookie-parser');   /* ??? */
 var session      = require('express-session'); /* ??? */
 
+const mqtt = require('mqtt') ;
+
 app.use(cookieParser()); // read cookies (needed for auth)
 
 
