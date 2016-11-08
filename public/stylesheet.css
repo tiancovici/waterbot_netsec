@@ -1,0 +1,154 @@
+.gridListDynamicTiles .gray {
+  background: #f5f5f5; }
+
+.gridListDynamicTiles .green {
+  background: #b9f6ca; }
+
+.gridListDynamicTiles .yellow {
+  background: #F9BF3B; }
+
+.gridListDynamicTiles .blue {
+  background: #89C4F4; }
+
+.gridListDynamicTiles .darkBlue {
+  background: #1E8BC3; }
+
+.gridListDynamicTiles .deepBlue {
+  background: #22A7F0; }
+
+.gridListDynamicTiles .purple {
+  background: #8E44AD; }
+
+.gridListDynamicTiles .lightPurple {
+  background: #9B59B6; }
+
+.gridListDynamicTiles .red {
+  background: #D24D57; }
+
+.gridListDynamicTiles .pink {
+  background: #D2527F; }
+/*********************/
+
+.md-button *, .md-button :after, .md-button :before{
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+/*********************/
+.md-input-has-value.bigClass > input {
+    font-size: 30px;
+}
+
+
+/*********************/
+/* START OF Change the Navbar Colors/Font/Size */
+/* Adjust Menu (red) text color, (Garamond) font-family, (1.5em) font-size  */
+.navbar .nav > li > a, .navbar .nav > li > a{
+font-size:      1.2em;
+}
+.navbar .nav > li > a:hover{
+background-color: #D91E18; 
+}
+
+/*.whiteframedemoBasicClassUsage {
+  /* For breakpoint `-xs` */
+  /* For breakpoint `-sm` */
+  /* For breakpoint `-md` */
+  /* For breakpoint `-gt-md` */ }
+  .whiteframedemoBasicClassUsage md-whiteframe {
+    background: #fff;
+    margin: 30px;
+}
+  @media (max-width: 599px) {
+    .whiteframedemoBasicClassUsage md-whiteframe {
+      margin: 7px;
+
+      background-color: #c8e4fa; }
+    .whiteframedemoBasicClassUsage md-whiteframe > span {
+      font-size: 0.4em; } }
+  @media (min-width: 600px) and (max-width: 959px) {
+    .whiteframedemoBasicClassUsage md-whiteframe {
+      margin: 20px;
+}
+    .whiteframedemoBasicClassUsage md-whiteframe > span {
+      font-size: 0.6em; } }
+  @media (min-width: 960px) and (max-width: 1279px) {
+    .whiteframedemoBasicClassUsage md-whiteframe {
+      margin: 20px;
+
+      background-color: #fcddde; }
+    .whiteframedemoBasicClassUsage md-whiteframe > span {
+      font-size: 0.9em; } }
+  @media (min-width: 1280px) {
+    .whiteframedemoBasicClassUsage md-whiteframe {
+      margin: 25px;
+
+      background-color: #F2FCE2; }
+    .whiteframedemoBasicClassUsage md-whiteframe > span {
+      font-size: 1.0em; } }
+
+
+/*
+Copyright 2016 Google Inc. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
+*/
+
+
+
+
+/*
+  Main Page CSS
+
+*/
+
+.inputdemoBasicUsage .md-datepicker-button {
+  width: 36px; }
+
+
+
+/*  Dialog */
+.dialogdemoBasicUsage #popupContainer {
+  position: relative; }
+
+.dialogdemoBasicUsage .footer {
+  width: 100%;
+  text-align: center;
+  margin-left: 20px; }
+
+.dialogdemoBasicUsage .footer, .dialogdemoBasicUsage .footer > code {
+  font-size: 0.8em;
+  margin-top: 50px; }
+
+.dialogdemoBasicUsage button {
+  width: 200px; }
+
+.dialogdemoBasicUsage div#status {
+  color: #c60008; }
+
+.dialogdemoBasicUsage .dialog-demo-prerendered md-checkbox {
+  margin-bottom: 0; }
+
+
+
+  /*   Nav Bar Angular MAterial */
+
+  HTMLJSCSS
+.fabSpeedDialdemoBasicUsage .text-capitalize {
+  text-transform: capitalize; }
+
+.fabSpeedDialdemoBasicUsage .md-fab:hover, .fabSpeedDialdemoBasicUsage .md-fab.md-focused {
+  background-color: #000 !important; }
+
+.fabSpeedDialdemoBasicUsage p.note {
+  font-size: 1.2rem; }
+
+.fabSpeedDialdemoBasicUsage .lock-size {
+  min-width: 300px;
+  min-height: 300px;
+  width: 300px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto; }

@@ -1,0 +1,58 @@
+<div >
+<div class="jumbotron" style="background-color:#1E8BC3">
+  <div class="container text-center">
+			<img style="width:40%; margin-bottom: -80px;" src="../img/logo_min_remove_background_crop.png" alt="Description" />
+  </div>
+</div>
+
+
+
+<div ng-repeat="item in miniLogos" style="background-color:white">
+		<div class="container text-center">
+			<br><br><br>
+			<h3>{{ item.header }}</h3>
+			<p>{{ item.desc }}</p>
+			<img style="width:32%" ng-src="{{item.imgPath}}"></img>
+		</div>
+</div><br><br><br>
+
+</div>
+
+
+<md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
+    <div class="container text-center" >
+
+        <h3> Contact Us </h3>
+				<p> For more informtion </p>
+
+      <md-input-container>
+        <label>Name</label>
+        <input ng-model="user.title">
+      </md-input-container>
+      <md-input-container>
+        <label>Email</label>
+        <input ng-model="user.email" type="email">
+      </md-input-container>
+
+      <md-input-container class="md-block">
+          <label>Questions</label>
+          <textarea ng-model="user.question" md-maxlength="" rows="4" md-select-on-focus></textarea>
+      </md-input-container>
+
+    </div>
+			<section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+				<md-button class="md-raised" style="width:50%" ng-click="emailQuestion(user)">Submit</md-button>
+			</section>
+  </md-content>
+
+   <div class="container text-center" >
+				<h3> Locations </h3>
+        <h3> Newton </h3>
+        <p> 190 Oak St. Newton MA <br>@ Paulett's Ballet Studio </p>
+        <h3> Westford </h3>
+        <p> 64 Brookside Rd. Westford MA <br>617-831-4464 </p>
+        <h3> Leominster </h3>
+        <p> 100 Crawford St. MA <br>@CrossFit EXP</p>
+	 </div>
+
+<br><br><br>
