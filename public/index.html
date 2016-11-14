@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="mok">
+<html lang="en" ng-app="waterBot">
     
 <!---- Start of Overall section -------------->
 <head>
 		<!---- Force Edge Internet Explorer  -------------->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	
-  <title>Masters of Karate</title>
+  <title>Waterbot</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -41,14 +41,13 @@
   <script src="bower_components/ng-material-floating-button/src/mfb-directive.js"></script>
   
 
-  <!-- Main Customize Stylesheet -->
-	<link rel="stylesheet"	 href="stylesheet.css">
+  <!-- Main Customize Stylesheet 
+	<link rel="stylesheet"	 href="stylesheet.css">-->
   <script src="script.js"></script>
 
-  <!--Pages Controllers -->
+  <!--Pages Controllers
 
-  <script src="pages/blog.js"></script>
-  <script src="pages/schedule.js"></script>
+  <script src="pages/blog.js"></script> -->
   
   
 </head>
@@ -57,28 +56,11 @@
 <body >
 	
 <!-- MAIN CONTENT AND INJECTED VIEWS -->
-<div id="main" ng-app="mokApp">
+<div id="main" ng-app="waterBot">
     <div ng-controller="navController" > 
 		<!-- angular templating -->
 		<!-- this is where content will be injected -->
-		<div ng-view></div>
-
-
-    <!-- Main Navigation menu          -->
-    <nav mfb-menu menu-state="userButtonsState" position="br" effect="zoomin" label="close"
-      active-icon="ion-close" resting-icon="ion-person"
-      toggling-method="click">
- 
-      <a mfb-button ng-repeat="button in userButtons"   ng-if="!$root.logged"   ng-click="goTo( button.path )"
-         icon="{{button.icon}}" label="{{button.label}}"> 
-        </a>
-
-  
-      <a mfb-button ng-repeat="button in userLoggedButtons" ng-if="$root.logged"  ng-click="goTo( button.path )"
-         icon="{{button.icon}}" label="{{button.label}}"> 
-      </a>
-    </nav>
- 
+		<div ng-view ></div> 
 
 </div>   
 <!---- End of Overall section -------------->
