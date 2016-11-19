@@ -9,7 +9,8 @@
   <title>Waterbot</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-	
+	<link rel="shortcut icon" href="favicon.ico">
+
 	<!-- Bootstrap Beauty -->
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <script src="./js/jquery.js"></script>
@@ -53,14 +54,11 @@
 </head>
 
 <!---- End of Overall section -------------->
-<body >
-	
-<!-- MAIN CONTENT AND INJECTED VIEWS -->
-<div id="main" ng-app="waterBot">
-    <div ng-controller="navController" > 
-		<!-- angular templating -->
-		<!-- this is where content will be injected -->
-		<div ng-view ></div> 
+<body id="main" ng-app="waterBot" ng-controller="navController" 
+      layout="column" >
+
+		<div ng-view flex layout="column" ></div> 
+
 
 </div>   
 <!---- End of Overall section -------------->
@@ -71,6 +69,6 @@
 <footer class="container-fluid text-center">
   <p>Footer Text</p>
 </footer>
--->
+--> 
 </body>
 </html>

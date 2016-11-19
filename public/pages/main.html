@@ -1,18 +1,30 @@
 
-<div layout-align="center center" > 
-  <md-content md-theme="docs-dark" layout-padding >
-  
-        <md-input-container>
-          <label>Username</label>
-          <input ng-model="user.name">
-        </md-input-container>
+
+
+
+<md-content flex md-theme="docs-dark" layout-padding layout="column" 
+              align="center center"  layout-align="center center">
 
         <md-input-container>
-          <label>password</label>
-          <input ng-model="user.password" type="email">
+          <label  layout="column" layout-align="center center"
+                 class="md-display-1">
+            Passcode</label>
+            <div layout="row">
+              <div class="md-headline"><input ng-model="user.name"> </div>
+            </div>
+
+
+            <div layout="row">
+              <div flex="33"> </div>
+                <md-button></md-button>
+              <div flex="33"> </div>
+            </div>
+      
+            
+          
         </md-input-container>
 
-  </md-content>
-</div>
+</md-content>
+
 
   

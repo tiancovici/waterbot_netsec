@@ -84,6 +84,10 @@ mosquitto_tls_psk_set(p_mosq, PSK_KEY, PSK_ID, NULL);
     fprintf(stderr, "Unable to connect: %d \n", status);
     return 1;
   }
+  else
+  {
+    sleep(10);
+  }
 
 #if 0
   /* Program */
