@@ -3,9 +3,6 @@ var wbotApp = angular.module('waterBot',[ 'ngRoute', 'ngMaterial',
 												'ngMessages','ng-mfb',
 												'material.svgAssetsCache']);
 
-
-var studentid;
-
 // configure our routes
 wbotApp.config(function($routeProvider, $locationProvider ){
 
@@ -38,106 +35,64 @@ wbotApp.controller('navController' ,[ '$scope', '$rootScope', '$window', '$mdDia
 
 
    // Navigate function 
-	$scope.goTo = function(path) {
-		$scope.pageButtonsState = 'closed';
-		$scope.userButtonsState = 'closed';
-
-		if(path == "logout")
-		{
-			$http.post('/logout');
-			$rootScope.logged = false;
-			
-			$location.path('/');
-		}
-		else
-		{
-			$location.path( path );
-		}
-	 };
-
-
    // Right navigation menu, main navbar.
 	$scope.navIconStyle =
 	[
-		{
-         "margin-bottom" : "0px",
-         'background-color': '#E40A5D'
-      },
-		{
-         "margin-bottom" : "5px",
-         'background-color': '#E40A5D'
-      }
+		{"margin-bottom" : "0px", 'background-color': '#E40A5D'},
+		{"margin-bottom" : "5px", 'background-color': '#E40A5D'}
 	] 
 
 	$scope.pageButtons = 
 	[
-		/* Disable sign in 
-		{
-			path: "signIn",
-			icon: "ion-person",
-			label: "Account"
-		}, */
-		{
-			path: "blog",
-			icon:  "ion-calendar", //"img/icons/news.svg", //
-			label: "News"
-		},
-		{
-			path: "schedule",
-			icon:  "ion-clock", //"img/icons/schedule.svg", // 
-			label: "Schedule"
-		},
-		{
-			path: "",
-			icon: "ion-information", // "img/icons/information.svg", //
-			label: "Home"
-		}
+		{  path: "blog", icon:  "ion-calendar", label: "News" },
+		{  path: "schedule", icon:  "ion-clock", label: "Schedule"},
 	]
 
-      // Left navigation menu, user navbar.
-   $scope.userNavIconStyle =
-	[
-		{
-         "margin-bottom" : "0px",
-         'background-color': 'rgb(255,87,34)'
-      },
-		{
-         "margin-bottom" : "5px",
-         'background-color': 'rgb(255,87,34)',
-			'aria-hidden' : 'false'
-      }
-	] 
-	this.userNavOpen = false;
-   $scope.userButtons = 
-	[
-		{
-			path: "login",
-			icon:  "ion-edit",//"img/icons/signin.svg",
-			label: "Log In"
-		},
-   ]
+	//
+	// email structure validation 
+	//
+	function validateEmail(email) {
+		var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		return re.test(email);
+	}
 
-	$scope.userLoggedButtons = 
-	[
-		{
-			path: 'notebook',
-			icon: 'ion-ios-book',
-			label: 'Notebook'
-		},
-		{
-			path: "profile",
-			icon: "ion-person",
-			label:"Profile"
-		},
-		{
-			path: "logout",
-			icon: "ion-arrow-right-c",
-			label:"Log Out"
-		},
-   ]
+	// Email user access to UI page
+	$scope.emailEntrance = function(user){
+		//$scope.userInput = $scope.user
+		var userInput = $scope.user;
+		
+		// Controller page(phase 1)
 
-}]);
-
+		// Email (phase 2)
+		http.post('/email', $scope.userInput)
+			.success(function(data) {
+				console.log('success');
+				console.log(data);	
+       	})
+			.failure(function(data) {
+				console.log('failed');
+       	});
+		
+//		if(validateEmail(user.email))
+//		{
+//			$scope.userInput = $scope.user
+//			$http.post('/email', $scope.userInput)
+//			.success(function(data) {
+//				console.log('success');
+//				console.log(data);	
+//       	})
+//			.failure(function(data) {
+//				console.log('failed');
+//       	});
+//		}
+//		else
+//		{
+//			console.log('bad info');
+//		}
+//
+//	}
+	}
+}])			
 
 wbotApp.controller('loginCtrl',[ '$scope', '$rootScope', '$http', '$window', function($scope, $rootScope, $http, $window){
 
@@ -159,6 +114,6 @@ wbotApp.controller('mainController',[ '$scope', '$rootScope', '$http', '$window'
     $mdThemingProvider.theme('docs-dark', 'default')
       .primaryPalette('yellow')
       .dark();
- });;
+ });
 
 
