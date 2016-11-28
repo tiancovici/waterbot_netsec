@@ -1,16 +1,31 @@
+//=================== Inclusion =======================================//
 #include <string.h>
 #include <stdio.h>
+#include <unistd.h>
+
 #include <mosquitto.h>
+
 #include "gpio.h"
-
-//#include "waterpump.h"
-
-#define xDEBUG
+#include "waterpump.h"
+//=================== Macros =========================================//
+#define xVERBOSE
+#define DEBUG
 
 #define BROKER_IP "192.168.7.36"
 #define PORT 1202
 
 #define xCA_APPROACH
+
+
+
+#define WATER_TOPIC       "act/water"
+#define POWER_TOPIC       "act/power"
+#define READ_POWER_TOPIC  "sense/power"
+
+
+/* Configuration */
+#define PUMP_WATER_DELAY 10u   //10 Seconds =
+#define PUMP_WATER_DELAY_PUBLISH PUMP_WATER_DELAY + 10u
 
 #define PW "waterbot"
 #define USER "iancovici"
@@ -18,6 +33,13 @@
 #define PSK_ID "psk-id"
 #define PSK_KEY "6a1a247f"
 
+#ifdef DEBUG
+  #define PUMP_WATER "0"
+#else
+  #define PUMP_WATER "3jfir4tg"
+#endif
+
+//=================== Data Types ======================================//
 typedef enum
 {
  qos0_no_confirm,
@@ -33,6 +55,7 @@ typedef enum
 }ssl_verify_t;
 
 
+//=================== Function Declarations ==========================//
 void rpi3_callbacks(void);
 void rpi3_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message);
 void rpi3_connect_callback(struct mosquitto *mosq, void *userdata, int result);
@@ -41,11 +64,25 @@ void rpi3_log_callback(struct mosquitto *mosq, void *userdata, int level, const 
 void rpi3_disconnect_callback(struct mosquitto *p_mosq, void *userdata, int level);
 
 
+//=================== Internal Data ==================================//
 struct mosquitto *p_mosq;
 
+#ifdef DEBUG
+  unsigned long int mWatts = 10;  /* Power Sensor state variable */
+#endif
+//=================== Function Definitions ===========================//
+
+//  Purpose: Control Waterpumps, Light. Process commands from client2,
+//           and return information back to client2
+//    - Instantiate a mosquitto node
+//                                 Topics
+//    - Actuate: Water pumps      act/water
+//               Power            act/power
+//    - Sense: Power Consumption  sense/power
+//
+//
 int main(void)
 {
-  unsigned long int mWatts = 10;  /* Power Sensor state variable */
   int status;
 
   mosquitto_lib_init();
@@ -84,23 +121,23 @@ mosquitto_tls_psk_set(p_mosq, PSK_KEY, PSK_ID, NULL);
   status = mosquitto_connect(p_mosq,   BROKER_IP,       PORT,    10);
   if(status)
   {
-    fprintf(stderr, "Unable to connect: %d \n", status);
+    fprintf(stderr, "Unable to connect: %s \n", mosquitto_strerror(status));
     return 1;
   }
 
   //Subscribe to topic sensor/power
   /* Mosquitto instance, Sequencer value, Topic Name ,  Quality of Service */
-  status = mosquitto_subscribe(p_mosq, NULL, "sensor/power", qos0_no_confirm);
+  status = mosquitto_subscribe(p_mosq, NULL, WATER_TOPIC, qos0_no_confirm);
   if(status)
   {
-    fprintf(stderr, "Unable to subscribe: %d \n", status);
+    fprintf(stderr, "Unable to subscribe: %s \n", mosquitto_strerror(status));
   }
 
   gpio_export(26u);
  
 
   /* Initialize water pumps */
-  //water_init();
+  water_init();
   //water_forward();
   //water_stop();
 
@@ -120,7 +157,7 @@ void rpi3_callbacks(void)
 //============== callback ===================
 void rpi3_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int qos_count, const int *granted_qos)
 {
-#ifdef DEBUG
+#ifdef VERBOSE
   int i;
 
   printf("Subscribed (mid: %d): %d", mid, granted_qos[0]);
@@ -136,17 +173,14 @@ void rpi3_message_callback(struct mosquitto *mosq, void *userdata, const struct 
   if(message->payloadlen){
     printf("%s %s\n", message->topic, message->payload);
 
-    if(strcmp(message->topic,"sensor/power") == 0u)
+    if(strcmp(message->topic,WATER_TOPIC) == 0u)
     {
-      if(strcmp(message->payload, "0") == 0u)
+      if(strcmp(message->payload, PUMP_WATER) == 0u)
       {
-        gpio_dir(26u, 0u);
-        gpio_set(26u, 0u);
-      }
-      else
-      {
-        gpio_dir(26u, 0u);
-        gpio_set(26u, 1u);
+        
+        water_forward();
+        sleep(PUMP_WATER_DELAY);
+        water_stop();
       }
     }
 

@@ -1,20 +1,37 @@
+//=================== Inclusion =======================================//
 #include <string.h>
 #include <stdio.h>
 #include <unistd.h>
 #include "mosquitto.h"
-
+//=================== Macros =========================================//
+#define DEBUG
 
 #define BROKER_IP "192.168.7.36"
 #define PORT 1202
-
-
 #define xCA_APPROACH
+
+
+#define WATER_TOPIC       "act/water"
+#define POWER_TOPIC       "act/power"
+#define READ_POWER_TOPIC  "sense/power"
+
+/* Configuration */
+#define PUMP_WATER_DELAY 10u   //10 Seconds =
+#define PUMP_WATER_DELAY_PUBLISH PUMP_WATER_DELAY + 10u
+
 #define PW "waterbot"
 #define USER "iancovici"
 
 #define PSK_ID "psk-id"
 #define PSK_KEY "6a1a247f"
 
+#ifdef DEBUG
+  #define PUMP_WATER "0"
+#else
+  #define PUMP_WATER "3jfir4tg"
+#endif
+
+//=================== Data Types ======================================//
 typedef enum
 {
  qos0_no_confirm,
@@ -29,13 +46,14 @@ typedef enum
 }ssl_verify_t;
 
 
+//=================== Function Declarations ==========================//
 void smartPlug_callbacks(void);
 void smartPlug_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message);
 void smartPlug_connect_callback(struct mosquitto *mosq, void *userdata, int result);
 void smartPlug_publish_callback(struct mosquitto *mosq, void *userdata, int mid);
 void smartPlug_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str);
 void smartPlug_disconnect_callback(struct mosquitto *p_mosq, void *userdata, int level);
-
+//=================== Internal Data ==================================//
 void simWattMeter(unsigned long int* val);
 
 struct mosquitto *p_mosq;
@@ -86,7 +104,7 @@ mosquitto_tls_psk_set(p_mosq, PSK_KEY, PSK_ID, NULL);
   }
   else
   {
-    sleep(10);
+    sleep(2);
   }
 
 #if 0
@@ -104,19 +122,26 @@ mosquitto_tls_psk_set(p_mosq, PSK_KEY, PSK_ID, NULL);
 #endif
 
 
-  while(1)
-  {
-    if(argc == 2)
-    {
-      memcpy(msg, argv[1], sizeof(msg));
-      msg[1] = '\0';
-      printf("%s\n", msg);
-      mosquitto_publish( p_mosq, NULL, "sensor/power", 8, &msg, qos1_with_confirm, false);   
+// while(1)
+// {
+//    if(argc == 2)
+//    {
+      memcpy(msg, PUMP_WATER, sizeof(PUMP_WATER));
+      status = mosquitto_publish( p_mosq, NULL, WATER_TOPIC,sizeof(PUMP_WATER), &msg, qos0_no_confirm, false);   
+      printf("Publish state: %s\n", mosquitto_strerror(status));
       sleep(1);
-    }
-  }
+//      memcpy(msg, PUMP_WATER, sizeof(PUMP_WATER));
+//      status = mosquitto_publish( p_mosq, NULL, WATER_TOPIC, 8, &msg, qos1_with_confirm, false);      
+//      printf("Publish state: %s\n", mosquitto_strerror(status));
+//      sleep(10);
+//        memcpy(msg, PUMP_WATER, sizeof(PUMP_WATER));
+//      status = mosquitto_publish( p_mosq, NULL, WATER_TOPIC, 8, &msg, qos1_with_confirm, false);      
+//      printf("Publish state: %s\n", mosquitto_strerror(status));
+//     sleep(10);
+//    }
+// }
 
-
+	mosquitto_lib_cleanup();
 
   return 0;
 }
@@ -132,7 +157,7 @@ void smartPlug_callbacks(void)
 //============== callback ===================
 void smartPlug_publish_callback(struct mosquitto *mosq, void *userdata, int mid)
 {
-    printf("Sent mWatts via topic: sensor/power");
+    //printf("Sent mWatts via topic: sensor/power");
 }
 
 void smartPlug_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message)
