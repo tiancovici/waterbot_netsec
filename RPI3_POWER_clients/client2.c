@@ -47,12 +47,12 @@ typedef enum
 
 
 //=================== Function Declarations ==========================//
-void smartPlug_callbacks(void);
-void smartPlug_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message);
-void smartPlug_connect_callback(struct mosquitto *mosq, void *userdata, int result);
-void smartPlug_publish_callback(struct mosquitto *mosq, void *userdata, int mid);
-void smartPlug_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str);
-void smartPlug_disconnect_callback(struct mosquitto *p_mosq, void *userdata, int level);
+void webApp_callbacks(void);
+void webApp_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message);
+void webApp_connect_callback(struct mosquitto *mosq, void *userdata, int result);
+void webApp_publish_callback(struct mosquitto *mosq, void *userdata, int mid);
+void webApp_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str);
+void webApp_disconnect_callback(struct mosquitto *p_mosq, void *userdata, int level);
 //=================== Internal Data ==================================//
 void simWattMeter(unsigned long int* val);
 
@@ -89,7 +89,7 @@ mosquitto_tls_psk_set(p_mosq, PSK_KEY, PSK_ID, NULL);
   mosquitto_tls_opts_set(p_mosq, SSL_VERIFY_PEER, "tlsv1.2", NULL);
 
   /* Setup callbacks for smartPlug client */
-  smartPlug_callbacks();
+  webApp_callbacks();
 
   // User/Password
   mosquitto_username_pw_set(p_mosq, USER, PW);
@@ -146,21 +146,21 @@ mosquitto_tls_psk_set(p_mosq, PSK_KEY, PSK_ID, NULL);
   return 0;
 }
 //============== Auxillary Functions ===================
-void smartPlug_callbacks(void)
+void webApp_callbacks(void)
 {
-  mosquitto_log_callback_set(p_mosq, smartPlug_log_callback);
-  mosquitto_connect_callback_set(p_mosq, smartPlug_connect_callback);
-  mosquitto_message_callback_set(p_mosq, smartPlug_message_callback);
-  mosquitto_publish_callback_set(p_mosq, smartPlug_publish_callback);
+  mosquitto_log_callback_set(p_mosq, webApp_log_callback);
+  mosquitto_connect_callback_set(p_mosq, webApp_connect_callback);
+  mosquitto_message_callback_set(p_mosq, webApp_message_callback);
+  mosquitto_publish_callback_set(p_mosq, webApp_publish_callback);
 }
 
 //============== callback ===================
-void smartPlug_publish_callback(struct mosquitto *mosq, void *userdata, int mid)
+void webApp_publish_callback(struct mosquitto *mosq, void *userdata, int mid)
 {
     //printf("Sent mWatts via topic: sensor/power");
 }
 
-void smartPlug_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message)
+void webApp_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message)
 {
   if(message->payloadlen){
     printf("%s %s\n", message->topic, message->payload);
@@ -169,7 +169,7 @@ void smartPlug_message_callback(struct mosquitto *mosq, void *userdata, const st
   }
   //fflush(stdout);
 }
-void smartPlug_connect_callback(struct mosquitto *mosq, void *userdata, int result)
+void webApp_connect_callback(struct mosquitto *mosq, void *userdata, int result)
 {
   int i;
   if(!result){
@@ -179,7 +179,7 @@ void smartPlug_connect_callback(struct mosquitto *mosq, void *userdata, int resu
   }
 }
 
-void smartPlug_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str)
+void webApp_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str)
 {
     /* Pring all log messages regardless of level. */
   printf("%s\n", str);

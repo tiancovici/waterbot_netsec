@@ -18,9 +18,9 @@
 
 
 
-#define WATER_TOPIC       "act/water"
-#define POWER_TOPIC       "act/power"
-#define READ_POWER_TOPIC  "sense/power"
+#define WATER_TOPIC       "act/water"   // WebApp to RPI3 Controller
+#define POWER_TOPIC       "act/power"   // RPI3 to SmartPlug
+#define READ_POWER_TOPIC  "sense/power" // SmartPlug to RPI3
 
 
 /* Configuration */
