@@ -8,24 +8,27 @@ wbotApp.config(function($routeProvider, $locationProvider ){
 
 	$routeProvider
 	// route for the home page
-	.when('/', {
-			templateUrl : 'pages/main.html',
-			controller  : 'mainController',
+	.when('/main', {
+			templateUrl : 'pages/login.html',
+			controller  : 'loginCtrl',
 			resolve:
 			{
 			}
 	})
 	// route for the login page
-	.when('/login', {
-			templateUrl : 'pages/login.html',
-			controller  : 'loginCtrl',
+	.when('/', {
+			templateUrl : 'pages/main.html',
+			controller  : 'mainController',
 			resolve:
 			{
 
 			}
 	});
 
-	
+//	$locationProvider.html5Mode({
+//  enabled: true,
+//  requireBase: false
+//	});
 });
 
 
@@ -73,28 +76,28 @@ wbotApp.controller('navController' ,[ '$scope', '$rootScope', '$window', '$mdDia
 				console.log('failed');
        	});
 		
-//		if(validateEmail(user.email))
-//		{
-//			$scope.userInput = $scope.user
-//			$http.post('/email', $scope.userInput)
-//			.success(function(data) {
-//				console.log('success');
-//				console.log(data);	
-//       	})
-//			.failure(function(data) {
-//				console.log('failed');
-//       	});
-//		}
-//		else
-//		{
-//			console.log('bad info');
-//		}
-//
-//	}
+
 	}
 }])			
 
-wbotApp.controller('loginCtrl',[ '$scope', '$rootScope', '$http', '$window', function($scope, $rootScope, $http, $window){
+wbotApp.controller('mainController',[ '$scope', '$rootScope', '$http', '$window', function($scope, $rootScope, $http, $window){
+
+var lightStats = ["Light On", "Light Off"]
+
+$scope.lightstate = lightStats[0];
+
+$scope.turnLight = function(){
+	if($scope.lightstate == lightStats[0])
+	{
+		//turnLightsOff();
+		$scope.lightstate = lightStats[1];
+	}
+	else
+	{
+		//turnLightsOn();
+		$scope.lightstate = lightStats[0];
+	}
+}
 
 
 }]);
@@ -105,9 +108,16 @@ wbotApp.controller('profileCtrl',[ '$scope', '$rootScope', '$http', '$window', f
 }]);
 
 
-wbotApp.controller('mainController',[ '$scope', '$rootScope', '$http', '$window', 
-	function($scope, $rootScope, $http, $window, loggedService){
+wbotApp.controller('loginCtrl',[ '$scope', '$rootScope', '$http', '$window', '$location',
+	function($scope, $rootScope, $http, $window, loggedService, $location){
 
+
+
+
+	function goTo(path)
+	{
+		$location.path(path);
+	}
 	
 }]).config(function($mdThemingProvider) {
     // Configure a dark theme with primary foreground yellow

@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
   mosquitto_lib_init();
   
   /* Instantiate */
-  p_mosq = mosquitto_new("SmartPlug",  /* Id */
+  p_mosq = mosquitto_new("WebApp",  /* Id */
                                  true,  /* instruct broker to clean all messages */
                                  NULL); /* no pointer to callbacks */
   

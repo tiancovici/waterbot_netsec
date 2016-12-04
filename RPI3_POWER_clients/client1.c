@@ -14,7 +14,7 @@
 #define BROKER_IP "192.168.7.36"
 #define PORT 1202
 
-#define xCA_APPROACH
+#define CA_APPROACH
 
 
 
@@ -92,16 +92,19 @@ int main(void)
                                  NULL); /* no pointer to callbacks */
   
 
+
 #ifdef CA_APPROACH
   /* Setup Secure Comm. */
   mosquitto_tls_set(p_mosq, 
             // CA filepath,  path to CA directory, client certiciate filepath, client key filepath, Password Callback
-						"/home/pi/mqtt_assgn4/certs/ca.crt",	
-            "/home/pi/mqtt_assgn4/certs", 
-            "/home/pi/mqtt_assgn4/certs/client1.crt", 
-            "/home/pi/mqtt_assgn4/certs/client1.key", 
+						"/home/pi/mqtt_proj/certs/ca.crt",	
+            "/home/pi/mqtt_proj/certs", 
+            "/home/pi/mqtt_proj/certs/client1.crt", 
+            "/home/pi/mqtt_proj/certs/client1.key", 
             NULL);
-#else
+#endif
+
+#ifdef PSK_APPROACH
 mosquitto_tls_psk_set(p_mosq, PSK_KEY, PSK_ID, NULL);
 #endif
   // Advanced SSL/TLS Options
