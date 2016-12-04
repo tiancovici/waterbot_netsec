@@ -65,6 +65,7 @@ app.post("/wqdjo123ji/user/", function(req, res){
 
   //Connect to mqtt Broker/Waterbot
   var ipInfo = getIP(req);
+  console.log(ipInfo);
   var logged;
 
   require('child_process').execFile("/usr/local/bin/mosquitto_pub", 
