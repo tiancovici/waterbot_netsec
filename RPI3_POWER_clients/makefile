@@ -1,8 +1,8 @@
-MOSQUITTO=/usr/local/Cellar/mosquitto/1.4.10
+MOSQUITTO=/home/pi/mosquitto
 
 CC=gcc
-CFLAGS= -ggdb -I$(MOSQUITTO)/include 
-LDFLAGS=$(MOSQUITTO)/lib/libmosquitto.1.4.10.dylib
+CFLAGS= -ggdb -I$(MOSQUITTO)/lib
+LDFLAGS=$(MOSQUITTO)/lib/libmosquitto.so.1
 
 
 
