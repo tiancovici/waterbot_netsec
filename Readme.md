@@ -7,9 +7,9 @@ client1 executed on raspberry pi
 npm start
 
 ## Code Example for pi
-copy RPI3_POWER_clients to pi
-scp -r RPI3_POWER_clients pi@[ip address]:~
-ssh pi@[ip address]
-cd RPI3_POWER_clients
-make
+copy RPI3_POWER_clients to pi <br />
+scp -r RPI3_POWER_clients pi@[ip address]:~ <br />
+ssh pi@[ip address] <br />
+cd RPI3_POWER_clients <br />
+make <br />
 ./client1
