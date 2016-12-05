@@ -11,6 +11,7 @@ var morgan            = require("morgan");  /* Some fancy way of logging request
 var bodyParser        = require('body-parser') /* Extra BS needed to interface client and server  */
 var cookieParser      = require('cookie-parser');   /* ??? */
 var session      = require('express-session'); /* cookie sessions  */
+var sleep = require('sleep'); //zZzZ
 
 /* Extra protection  */
 var helmet = require('helmet');
@@ -54,6 +55,8 @@ app.get('/', function(req, res) {
 
 ///
 var getIP = require('ipware')().get_ip;
+const ipPort = '192.168.1.134';
+const child = require('child_process');
 
 
 //======[Back-End <- Front-End, User Login Info ]==========//
@@ -65,11 +68,10 @@ app.post("/wqdjo123ji/user/", function(req, res){
 
   //Connect to mqtt Broker/Waterbot
   var ipInfo = getIP(req);
-  console.log(ipInfo);
   var logged;
 
-  require('child_process').execFile("/usr/local/bin/mosquitto_pub", 
-  ['-p', '1202', '-h', '192.168.7.36', '-t', 'test/test', '-m', '1',
+  someChild1 = child.execFile("/usr/local/bin/mosquitto_pub", 
+  ['-p', '1202', '-h', ipPort, '-t', 'test/test', '-m', '1',
    //'--key', './RPI3_POWER_clients/certs/client2.key', 
    //'--cert','./RPI3_POWER_clients/certs/client2.crt',
    '-u', user.name, '-P', user.passw],
@@ -84,25 +86,48 @@ app.post("/wqdjo123ji/user/", function(req, res){
       }
       else{
           logged = true;
+          count = 0;
       }
       console.log(logged);
       res.json({counter: count, status: logged});
   });
-
+  sleep.usleep(1000000);
+  someChild1.kill();
 });
+
 
 ///[     Water pump buton ]///
 app.post("/ejtlqwjmv/act/", function(req, res){
 
   var user = req.body;
-  require('child_process').execFile("/usr/local/bin/mosquitto_pub", 
-  ['-p', '1202', '-h', '192.168.7.36', '-t', 'act/water', '-m', '0',
+  someChild2 = child.execFile("/usr/local/bin/mosquitto_pub", 
+  ['-p', '1202', '-h', ipPort, '-t', 'act/water', '-m', '0',
    '-u', user.name, '-P', user.passw],
   function(err, stdout, stderr) 
   {
-
+      console.log(stdout)
   });
+  sleep.usleep(1000000);
+  someChild2.kill();
 });
+
+///[     Water pump buton ]///
+app.post("/rtiuvnxjued/act/", function(req, res){
+
+  var user = req.body;
+ someChild3 = child.execFile("/usr/local/bin/mosquitto_pub", 
+  ['-p', '1202', '-h', ipPort, '-t', 'light_ctrl', '-m', user.lightstateBool,
+   '-u', user.name, '-P', user.passw],
+  function(err, stdout, stderr) 
+  {
+      console.log(stdout)
+  });
+
+  sleep.usleep(1000000);
+  someChild3.kill();
+});
+
+
 
 app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);

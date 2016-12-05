@@ -34,6 +34,7 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth": "^1.0.0",
+    "sleep": "^5.0.0",
     "socket.io": "^1.7.1",
     "sys": "0.0.1",
     "xoauth2": "^1.2.0"

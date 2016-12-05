@@ -11,7 +11,8 @@
 #define xVERBOSE
 #define DEBUG
 
-#define BROKER_IP "192.168.7.36"
+//#define BROKER_IP "192.168.7.36"
+#define BROKER_IP "192.168.1.134"
 #define PORT 1202
 
 #define CA_APPROACH
@@ -25,7 +26,7 @@
 
 /* Configuration */
 #define PUMP_WATER_DELAY 10u   //10 Seconds =
-#define PUMP_WATER_DELAY_PUBLISH PUMP_WATER_DELAY + 10u
+#define PUMP_WATER_DELAY_PUBLISH PUMP_WATER_DELAY + 15u
 
 #define PW "waterbot"
 #define USER "iancovici"
