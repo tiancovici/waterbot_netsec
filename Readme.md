@@ -1,11 +1,11 @@
 ## Waterbot
 
-NodeJS Server and mqtt client executed on desktop/laptop or raspberry pi 
-client1 executed on raspberry pi
-switchmqtt executed on raspberry pi
+NodeJS Server and mqtt client executed on desktop/laptop or raspberry pi <br/>
+client1 executed on raspberry pi <br/>
+switchmqtt executed on raspberry pi<br/>
 ## Code Example for server (root direcotry)
-
-npm start
+npm install
+npm start (or npm run dev)
 
 ## Code Example for pi
 copy RPI3_POWER_clients to pi <br />
